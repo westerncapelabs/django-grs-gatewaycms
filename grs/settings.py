@@ -26,10 +26,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'grs',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'USER': 'praekelt',
+        'PASSWORD': 'praekelt',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     #'djcelery',
     #'djcelery_email',
     'debug_toolbar',
+    'quiz',
 
     # sample apps to explain usage
     #'celery_app',
