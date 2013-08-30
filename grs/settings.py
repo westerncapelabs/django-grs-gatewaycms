@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'quiz',
     'tastypie',
+    'services',
 
     # sample apps to explain usage
     #'celery_app',
