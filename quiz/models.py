@@ -1,13 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Quiz(models.Model):
-    name = models.CharField(max_length=20,
+    name = models.CharField(max_length=30,
                             blank=False,
                             verbose_name="Name of Quiz")
     description = models.CharField(max_length=180)
     active = models.BooleanField()
-    completed = models.BooleanField(editable=False)
+    updated_by = models.ForeignKey(User)
+    updated_at = models.DateTimeField(auto_now_add=True,
+                                      blank=False,
+                                      editable=False)
 
     def __unicode__(self):
         return self.name
@@ -18,7 +22,7 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     quiz_id = models.ForeignKey('Quiz',
-                                related_name='quiz_ids')
+                                related_name='question_quiz_id')
     question = models.CharField(max_length=180, blank=False)
 
     def __unicode__(self):
@@ -31,7 +35,7 @@ class Question(models.Model):
 class Answer(models.Model):
     # This class stores the answers.
     question_id = models.ForeignKey('Question',
-                                    related_name="question_ids")
+                                    related_name="answer_question_id")
     answer = models.CharField(max_length=160)
 
     def __unicode__(self):
@@ -41,7 +45,7 @@ class Answer(models.Model):
 class Response(models.Model):
     # This class stores the answers.
     question_id = models.ForeignKey('Question',
-                                    related_name="question_ids")
+                                    related_name="response_question_id")
     response = models.CharField(max_length=160)
 
     def __unicode__(self):
@@ -50,8 +54,10 @@ class Response(models.Model):
 
 class FinalResponse(models.Model):
     quiz_id = models.ForeignKey('Quiz',
-                                related_name='quiz_id')
-    final_response = models.CharField(max_length=160)
+                                related_name='fr_quiz_id')
+    text = models.CharField(max_length=180)
+    sms = models.CharField(max_length=160)
+    for_total = models.IntegerField()
 
     def __unicode__(self):
         return self.response
