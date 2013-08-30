@@ -30,7 +30,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class FinalResponseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["quiz_id", "text", "sms", "for_total"]
 
 
 admin.site.register(Quiz, QuizAdmin)
