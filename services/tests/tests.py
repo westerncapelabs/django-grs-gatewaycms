@@ -1,16 +1,21 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
+from tastypie.test import ResourceTestCase
+from django.core.urlresolvers import reverse
+import json
+from services.models import Service
+import datetime
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class TestService(ResourceTestCase):
+    def test_basic_api_functionality(self):
         """
-        Tests that 1 + 1 always equals 2.
+            Testing basic API functionality.
         """
-        self.assertEqual(1 + 1, 2)
+        url = reverse('api_dispatch_list',
+                      kwargs={'resource_name': 'services',
+                      'api_name': 'v1'})
+        response = self.client.get(url)
+        self.assertEqual("application/json", response["Content-Type"])
+        self.assertEqual(response.status_code, 200)
+        json_item = json.loads(response.content)
+        self.assertIn("meta", json_item)
+        self.assertIn("objects", json_item)
