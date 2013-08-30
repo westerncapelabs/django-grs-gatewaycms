@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     #'djcelery_email',
     'debug_toolbar',
     'quiz',
+    'tastypie',
 
     # sample apps to explain usage
     #'celery_app',
