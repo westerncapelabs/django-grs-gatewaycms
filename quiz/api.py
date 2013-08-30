@@ -19,6 +19,11 @@ class QuizResource(ModelResource):
         include_resource_uri = True
         always_return_data = True
 
+    def get_object_list(self, request):
+        query = super(QuizResource, self).get_object_list(request)
+        query = query.filter(active=True)
+        return query
+
 
 class QuestionResource(ModelResource):
     question_id = fields.ToManyField("quiz.api.AnswerResource",
@@ -27,6 +32,7 @@ class QuestionResource(ModelResource):
 
     class Meta:
         queryset = Question.objects.all()
+        include_resource_uri = False
 
 
 class AnswerResource(ModelResource):
