@@ -20,11 +20,13 @@ class AnswerInline(admin.StackedInline):
 
 # Admin
 class QuizAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "description", "active",
+                    "updated_by", "updated_at"]
 
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
+    list_display = ["quiz_id", "question"]
 
 
 class FinalResponseAdmin(admin.ModelAdmin):
