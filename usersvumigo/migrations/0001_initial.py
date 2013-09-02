@@ -15,6 +15,7 @@ class Migration(SchemaMigration):
             ('sex', self.gf('django.db.models.fields.CharField')(max_length=6)),
             ('age', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('community', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'usersvumigo', ['VumiGoUser'])
 
@@ -29,6 +30,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'VumiGoUser'},
             'age': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'community': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'msisdn': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'sex': ('django.db.models.fields.CharField', [], {'max_length': '6'})
