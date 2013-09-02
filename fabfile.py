@@ -1,10 +1,21 @@
-from fabric.api import cd, sudo, env
+from fabric.api import cd, sudo, env, confirm, abort
 import os
 
 PROJECT = os.environ.get('PROJECT', 'django-grs-gatewaycms')
-DEPLOY_USER = os.environ.get('DEPLOY_USER', 'grs')
+DEPLOY_USER = os.environ.get('DEPLOY_USER', 'mike')
 
-env.path = os.path.join('/', 'var', 'westerncapelabs', PROJECT)
+env.path = os.path.join('/', 'srv', 'grs', env.confprefix, PROJECT)
+
+def staging():
+    env.confprefix = 'staging'
+
+
+def prod():
+    env.confprefix = 'prod'
+    if confirm("You are about to deploy to PRODUCTION. ARE YOU REALLY SURE?"):
+        pass
+    else:
+        abort("Aborting because you got scared... whimp.")
 
 
 def restart():
