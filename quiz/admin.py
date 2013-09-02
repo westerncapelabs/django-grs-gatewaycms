@@ -23,6 +23,10 @@ class QuizAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "active",
                     "updated_by", "updated_at"]
 
+    def save_model(self, request, obj, form, change):
+        obj.updated_by = request.user
+        obj.save()
+
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
