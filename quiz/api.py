@@ -5,13 +5,13 @@ from quiz.models import (Quiz, Question, Answer, FinalResponse)
 
 
 class QuizResource(ModelResource):
-    q_quiz_id = fields.ToManyField("quiz.api.QuestionResource",
-                                   'q_quiz_id',
+    questions = fields.ToManyField("quiz.api.QuestionResource",
+                                   'questions',
                                     full=True)
 
-    fr_quiz_id = fields.ToManyField("quiz.api.FinalResponseResource",
-                                   'fr_quiz_id',
-                                    full=True)
+    final_responses = fields.ToManyField("quiz.api.FinalResponseResource",
+                                         'final_responses',
+                                          full=True)
     class Meta:
         queryset = Quiz.objects.all()
         resource_name = "quiz"
@@ -26,8 +26,8 @@ class QuizResource(ModelResource):
 
 
 class QuestionResource(ModelResource):
-    question_id = fields.ToManyField("quiz.api.AnswerResource",
-                                  'question_id',
+    answers = fields.ToManyField("quiz.api.AnswerResource",
+                                  'answers',
                                   full=True)
 
     class Meta:
