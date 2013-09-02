@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'quiz',
     'tastypie',
     'services',
+    'usersvumigo'
 
     # sample apps to explain usage
     #'celery_app',

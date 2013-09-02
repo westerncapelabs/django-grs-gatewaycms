@@ -6,7 +6,7 @@ class Quiz(models.Model):
     name = models.CharField(max_length=30,
                             blank=False,
                             verbose_name="Name of Quiz")
-    description = models.CharField(max_length=180)
+    description = models.CharField(max_length=163)
     active = models.BooleanField()
     updated_by = models.ForeignKey(User)
     updated_at = models.DateTimeField(auto_now_add=True,
@@ -23,7 +23,7 @@ class Quiz(models.Model):
 class Question(models.Model):
     quiz_id = models.ForeignKey('Quiz',
                                 related_name='q_quiz_id')
-    question = models.CharField(max_length=180, blank=False)
+    question = models.CharField(max_length=163, blank=False)
 
     def __unicode__(self):
         return self.question
@@ -36,8 +36,8 @@ class Answer(models.Model):
     # This class stores the answers.
     question_id = models.ForeignKey('Question',
                                     related_name="question_id")
-    answer = models.CharField(max_length=160)
-    response = models.CharField(max_length=160)
+    answer = models.CharField(max_length=156)
+    response = models.CharField(max_length=156)
 
     def __unicode__(self):
         return self.answer
