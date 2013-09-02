@@ -38,6 +38,7 @@ class Answer(models.Model):
                                     related_name="question_id")
     answer = models.CharField(max_length=156)
     response = models.CharField(max_length=156)
+    correct = models.BooleanField()
 
     def __unicode__(self):
         return self.answer
