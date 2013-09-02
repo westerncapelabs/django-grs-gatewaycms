@@ -34,33 +34,45 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ["quiz_id", "question"]
 
     def response_add(self, request, obj, post_url_continue=None):
-        """
-        from http://stackoverflow.com/questions/14067341/modify-django-save-and-add-another-button-to-set-initial-value-of-field-based
-        """
         if request.POST.has_key('_addanother'):
             url = reverse("admin:quiz_question_add")
             quiz_id = request.POST['quiz_id']
             qs = '?quiz_id=%s' % quiz_id
             return HttpResponseRedirect(''.join((url, qs)))
         else:
-            return HttpResponseRedirect(reverse("admin:quiz_question_changelist"))
+            return super(QuestionAdmin, self).response_add(request, obj, post_url_continue=None)
 
     def response_change(self, request, obj, post_url_continue=None):
-        """
-        from http://stackoverflow.com/questions/14067341/modify-django-save-and-add-another-button-to-set-initial-value-of-field-based
-        """
         if request.POST.has_key('_addanother'):
             url = reverse("admin:quiz_question_add")
             quiz_id = request.POST['quiz_id']
             qs = '?quiz_id=%s' % quiz_id
             return HttpResponseRedirect(''.join((url, qs)))
         else:
-            return HttpResponseRedirect(reverse("admin:quiz_question_changelist"))
+            return super(QuestionAdmin, self).response_add(request, obj, post_url_continue=None)
 
 
 
 class FinalResponseAdmin(admin.ModelAdmin):
     list_display = ["quiz_id", "text", "sms", "for_total"]
+
+    def response_add(self, request, obj, post_url_continue=None):
+        if request.POST.has_key('_addanother'):
+            url = reverse("admin:quiz_finalresponse_add")
+            quiz_id = request.POST['quiz_id']
+            qs = '?quiz_id=%s' % quiz_id
+            return HttpResponseRedirect(''.join((url, qs)))
+        else:
+            return super(FinalResponseAdmin, self).response_add(request, obj, post_url_continue=None)
+
+    def response_change(self, request, obj, post_url_continue=None):
+        if request.POST.has_key('_addanother'):
+            url = reverse("admin:quiz_finalresponse_add")
+            quiz_id = request.POST['quiz_id']
+            qs = '?quiz_id=%s' % quiz_id
+            return HttpResponseRedirect(''.join((url, qs)))
+        else:
+            return super(FinalResponseAdmin, self).response_add(request, obj, post_url_continue=None)
 
 
 admin.site.register(Quiz, QuizAdmin)
