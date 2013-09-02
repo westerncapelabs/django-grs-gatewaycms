@@ -6,7 +6,7 @@ class Quiz(models.Model):
     name = models.CharField(max_length=30,
                             blank=False,
                             verbose_name="Name of Quiz")
-    description = models.CharField(max_length=180)
+    description = models.CharField(max_length=163)
     active = models.BooleanField()
     updated_by = models.ForeignKey(User)
     updated_at = models.DateTimeField(auto_now_add=True,
