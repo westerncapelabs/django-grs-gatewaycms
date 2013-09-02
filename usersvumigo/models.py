@@ -8,6 +8,9 @@ class VumiGoUser(models.Model):
     sex = models.CharField(max_length=6)
     age = models.CharField(max_length=30)
     community = models.CharField(max_length=30)
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      blank=False,
+                                      editable=False)
 
     def __unicode__(self):
         return self.msisdn
