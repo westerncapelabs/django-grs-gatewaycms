@@ -22,7 +22,7 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     quiz_id = models.ForeignKey('Quiz',
-                                related_name='q_quiz_id')
+                                related_name='questions')
     question = models.CharField(max_length=163, blank=False)
 
     def __unicode__(self):
@@ -35,7 +35,7 @@ class Question(models.Model):
 class Answer(models.Model):
     # This class stores the answers.
     question_id = models.ForeignKey('Question',
-                                    related_name="question_id")
+                                    related_name="answers")
     answer = models.CharField(max_length=156)
     response = models.CharField(max_length=156)
 
@@ -45,7 +45,7 @@ class Answer(models.Model):
 
 class FinalResponse(models.Model):
     quiz_id = models.ForeignKey('Quiz',
-                                related_name='fr_quiz_id')
+                                related_name='final_responses')
     text = models.CharField(max_length=180)
     sms = models.CharField(max_length=160)
     for_total = models.IntegerField()
