@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'quiz_quiz', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=180)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=163)),
             ('active', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('updated_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
@@ -22,26 +22,19 @@ class Migration(SchemaMigration):
         # Adding model 'Question'
         db.create_table(u'quiz_question', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('quiz_id', self.gf('django.db.models.fields.related.ForeignKey')(related_name='question_quiz_id', to=orm['quiz.Quiz'])),
-            ('question', self.gf('django.db.models.fields.CharField')(max_length=180)),
+            ('quiz_id', self.gf('django.db.models.fields.related.ForeignKey')(related_name='q_quiz_id', to=orm['quiz.Quiz'])),
+            ('question', self.gf('django.db.models.fields.CharField')(max_length=163)),
         ))
         db.send_create_signal(u'quiz', ['Question'])
 
         # Adding model 'Answer'
         db.create_table(u'quiz_answer', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('question_id', self.gf('django.db.models.fields.related.ForeignKey')(related_name='answer_question_id', to=orm['quiz.Question'])),
-            ('answer', self.gf('django.db.models.fields.CharField')(max_length=160)),
+            ('question_id', self.gf('django.db.models.fields.related.ForeignKey')(related_name='question_id', to=orm['quiz.Question'])),
+            ('answer', self.gf('django.db.models.fields.CharField')(max_length=156)),
+            ('response', self.gf('django.db.models.fields.CharField')(max_length=156)),
         ))
         db.send_create_signal(u'quiz', ['Answer'])
-
-        # Adding model 'Response'
-        db.create_table(u'quiz_response', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('question_id', self.gf('django.db.models.fields.related.ForeignKey')(related_name='response_question_id', to=orm['quiz.Question'])),
-            ('response', self.gf('django.db.models.fields.CharField')(max_length=160)),
-        ))
-        db.send_create_signal(u'quiz', ['Response'])
 
         # Adding model 'FinalResponse'
         db.create_table(u'quiz_finalresponse', (
@@ -63,9 +56,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Answer'
         db.delete_table(u'quiz_answer')
-
-        # Deleting model 'Response'
-        db.delete_table(u'quiz_response')
 
         # Deleting model 'FinalResponse'
         db.delete_table(u'quiz_finalresponse')
@@ -110,9 +100,10 @@ class Migration(SchemaMigration):
         },
         u'quiz.answer': {
             'Meta': {'object_name': 'Answer'},
-            'answer': ('django.db.models.fields.CharField', [], {'max_length': '160'}),
+            'answer': ('django.db.models.fields.CharField', [], {'max_length': '156'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'question_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'answer_question_id'", 'to': u"orm['quiz.Question']"})
+            'question_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'question_id'", 'to': u"orm['quiz.Question']"}),
+            'response': ('django.db.models.fields.CharField', [], {'max_length': '156'})
         },
         u'quiz.finalresponse': {
             'Meta': {'object_name': 'FinalResponse'},
@@ -125,23 +116,17 @@ class Migration(SchemaMigration):
         u'quiz.question': {
             'Meta': {'object_name': 'Question'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'question': ('django.db.models.fields.CharField', [], {'max_length': '180'}),
-            'quiz_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'question_quiz_id'", 'to': u"orm['quiz.Quiz']"})
+            'question': ('django.db.models.fields.CharField', [], {'max_length': '163'}),
+            'quiz_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'q_quiz_id'", 'to': u"orm['quiz.Quiz']"})
         },
         u'quiz.quiz': {
             'Meta': {'object_name': 'Quiz'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '180'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '163'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'updated_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
-        },
-        u'quiz.response': {
-            'Meta': {'object_name': 'Response'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'question_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'response_question_id'", 'to': u"orm['quiz.Question']"}),
-            'response': ('django.db.models.fields.CharField', [], {'max_length': '160'})
         }
     }
 
