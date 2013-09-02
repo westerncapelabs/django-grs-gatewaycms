@@ -33,6 +33,7 @@ class Migration(SchemaMigration):
             ('question_id', self.gf('django.db.models.fields.related.ForeignKey')(related_name='question_id', to=orm['quiz.Question'])),
             ('answer', self.gf('django.db.models.fields.CharField')(max_length=156)),
             ('response', self.gf('django.db.models.fields.CharField')(max_length=156)),
+            ('correct', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'quiz', ['Answer'])
 
@@ -101,6 +102,7 @@ class Migration(SchemaMigration):
         u'quiz.answer': {
             'Meta': {'object_name': 'Answer'},
             'answer': ('django.db.models.fields.CharField', [], {'max_length': '156'}),
+            'correct': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'question_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'question_id'", 'to': u"orm['quiz.Question']"}),
             'response': ('django.db.models.fields.CharField', [], {'max_length': '156'})
