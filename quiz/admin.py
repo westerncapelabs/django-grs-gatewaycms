@@ -1,7 +1,8 @@
 from django.contrib import admin
-from django import forms
 from django.forms.models import BaseInlineFormSet
 from quiz.models import (Quiz, Question, Answer, FinalResponse)
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 # Formsets 
 class AnswerFormset(BaseInlineFormSet):
@@ -31,6 +32,31 @@ class QuizAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
     list_display = ["quiz_id", "question"]
+
+    def response_add(self, request, obj, post_url_continue=None):
+        """
+        from http://stackoverflow.com/questions/14067341/modify-django-save-and-add-another-button-to-set-initial-value-of-field-based
+        """
+        if request.POST.has_key('_addanother'):
+            url = reverse("admin:quiz_question_add")
+            quiz_id = request.POST['quiz_id']
+            qs = '?quiz_id=%s' % quiz_id
+            return HttpResponseRedirect(''.join((url, qs)))
+        else:
+            return HttpResponseRedirect(reverse("admin:quiz_question_changelist"))
+
+    def response_change(self, request, obj, post_url_continue=None):
+        """
+        from http://stackoverflow.com/questions/14067341/modify-django-save-and-add-another-button-to-set-initial-value-of-field-based
+        """
+        if request.POST.has_key('_addanother'):
+            url = reverse("admin:quiz_question_add")
+            quiz_id = request.POST['quiz_id']
+            qs = '?quiz_id=%s' % quiz_id
+            return HttpResponseRedirect(''.join((url, qs)))
+        else:
+            return HttpResponseRedirect(reverse("admin:quiz_question_changelist"))
+
 
 
 class FinalResponseAdmin(admin.ModelAdmin):
