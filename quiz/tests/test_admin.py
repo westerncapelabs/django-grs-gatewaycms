@@ -21,9 +21,6 @@ class TestAdminView(TestCase):
 
         url_index = reverse("admin:index")
         response = self.client.get(url_index)
-        # import pdb; pdb.set_trace()
-        # index_result = response.__dict__['context_data']['cl'].__dict__['result_list']
-        # print index_result
 
         url = reverse("admin:quiz_quiz_changelist")
         response = self.client.get(url)
@@ -66,3 +63,32 @@ class TestAdminView(TestCase):
         self.assertEqual(question.question, "This is the first QUestion?")
         self.assertEqual(answer.answer, "Yes")
         self.assertEqual(answer.response, "R1")
+
+    def test_admin_quiz_exceed_limit(self):
+        """
+        Test to see if quiz exceeds limit
+        """
+        self.client.login(username=self.admin.username,
+                          password="pass123")
+
+        url = reverse("admin:quiz_quiz_add")
+        self.client.post(url, data={"name": "Quiz Test Title",
+                         "description": "Quiz Test Description"})
+        query = Quiz.objects.get(name="Quiz Test Title")
+
+        url = reverse("admin:quiz_question_add")
+        response = self.client.post(url, data={"question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim segnitiae?",
+                                    "quiz_id": query.id,
+                                    "answers-INITIAL_FORMS": 0,
+                                    'answers-TOTAL_FORMS': 5,
+                                    'answers-MAX_NUM_FORMS':  u'',
+                                    "answers-0-answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, meque romanum.",
+                                    'answers-0-response': "R1",
+                                    "answers-1-answer": "Lorem ipsum dolor sit amet, consectetur adipisicing.",
+                                    'answers-1-response': "R1"
+                                    })
+
+        self.assertIn("You have gone beyond the character limit please shorten questions and/or answers",
+                      response.context_data["errors"])
+
+
