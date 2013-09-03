@@ -31,8 +31,8 @@ class AnswerFormset(BaseInlineFormSet):
                 if form.cleaned_data['correct']:
                     correct_selected.append(form.cleaned_data['correct'])
 
-        if not correct_selected:
-            raise forms.ValidationError("You need at least one correct answer")
+        if not correct_selected or len(correct_selected) > 1:
+            raise forms.ValidationError("You need only one correct answer")
 
 class FinalResponseFormset(BaseInlineFormSet):
     pass
