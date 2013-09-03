@@ -14,11 +14,13 @@ class AnswerFormset(BaseInlineFormSet):
     def clean(self):
         super(AnswerFormset, self).clean()
         char_limit = len(self.instance.question)
+        correct_selected = []
         for form in self.forms:
             if not hasattr(form, 'cleaned_data'):
                 continue
 
             if "answer" in form.cleaned_data:
+                # import pdb; pdb.set_trace()
                 char_limit = char_limit + len(form.cleaned_data['answer']) + 3
 
                 if char_limit > 163:
@@ -27,6 +29,11 @@ class AnswerFormset(BaseInlineFormSet):
                                                 " please shorten questions"
                                                 " and/or answers")
 
+                if form.cleaned_data['correct']:
+                    correct_selected.append(form.cleaned_data['correct'])
+
+        if not correct_selected:
+            raise forms.ValidationError("You need at least one correct answer")
 
 class FinalResponseFormset(BaseInlineFormSet):
     pass
