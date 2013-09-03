@@ -49,7 +49,7 @@ class Answer(models.Model):
 class FinalResponse(models.Model):
     quiz_id = models.ForeignKey('Quiz',
                                 related_name='final_responses')
-    text = models.CharField(max_length=180)
+    text = models.CharField(max_length=123)
     sms = models.CharField(max_length=160)
     for_total = models.IntegerField()
 
