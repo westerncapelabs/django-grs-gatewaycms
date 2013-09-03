@@ -20,7 +20,6 @@ class AnswerFormset(BaseInlineFormSet):
                 continue
 
             if "answer" in form.cleaned_data:
-                # import pdb; pdb.set_trace()
                 char_limit = char_limit + len(form.cleaned_data['answer']) + 3
 
                 if char_limit > 163:
