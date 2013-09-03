@@ -9,7 +9,7 @@ class Quiz(models.Model):
     description = models.CharField(max_length=163)
     active = models.BooleanField()
     updated_by = models.ForeignKey(User,
-                                   null =True,
+                                   null=True,
                                    editable=False)
     updated_at = models.DateTimeField(auto_now_add=True,
                                       blank=False,
