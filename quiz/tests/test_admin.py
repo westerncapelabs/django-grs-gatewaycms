@@ -10,10 +10,11 @@ class TestAdminView(TestCase):
     Testing Super User
     """
     fixtures = ['quiz_sample.json']
+
     def setUp(self):
         self.admin = User.objects.create_superuser('admin',
-                                                    'admin@test.com', 
-                                                    'pass123')
+                                                   'admin@test.com',
+                                                   'pass123')
 
     def test_admin_view(self):
         self.client.login(username=self.admin.username,
@@ -28,7 +29,6 @@ class TestAdminView(TestCase):
         quizzes = []
         [quizzes.append(q.name) for q in quiz_result]
         self.assertEqual(sorted(quizzes), sorted(["Quiz Welcome"]))
-
 
     def test_admin_create_quiz(self):
         """
@@ -45,7 +45,6 @@ class TestAdminView(TestCase):
         self.assertEqual(query.name, "Quiz Test Title")
         self.assertEqual(query.updated_by, self.admin)
         self.assertGreater(query.updated_at, time)
-
 
         url = reverse("admin:quiz_question_add")
         self.client.post(url, data={"question": "This is the first QUestion?",
@@ -77,18 +76,18 @@ class TestAdminView(TestCase):
         query = Quiz.objects.get(name="Quiz Test Title")
 
         url = reverse("admin:quiz_question_add")
-        response = self.client.post(url, data={"question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim segnitiae?",
+        response = self.client.post(url, data={"question": ("Lorem ipsum dolor sit amet",
+                                    "consectetur adipisicing elit. Enim segnitiae?"),
                                     "quiz_id": query.id,
                                     "answers-INITIAL_FORMS": 0,
                                     'answers-TOTAL_FORMS': 5,
-                                    'answers-MAX_NUM_FORMS':  u'',
-                                    "answers-0-answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, meque romanum.",
+                                    'answers-MAX_NUM_FORMS': u'',
+                                    "answers-0-answer": ("Lorem ipsum dolor sit amet,"
+                                                         "consectetur adipisicing elit. Nobis, meque romanum."),
                                     'answers-0-response': "R1",
                                     "answers-1-answer": "Lorem ipsum dolor sit amet, consectetur adipisicing.",
                                     'answers-1-response': "R1"
-                                    })
+                                     })
 
         self.assertIn("You have gone beyond the character limit please shorten questions and/or answers",
                       response.context_data["errors"])
-
-
