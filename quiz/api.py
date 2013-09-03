@@ -3,19 +3,17 @@ from tastypie import fields
 from quiz.models import (Quiz, Question, Answer, FinalResponse)
 
 
-
 class QuizResource(ModelResource):
     questions = fields.ToManyField("quiz.api.QuestionResource",
-                                   'questions',
-                                    full=True)
+                                   'questions', full=True)
 
     final_responses = fields.ToManyField("quiz.api.FinalResponseResource",
-                                         'final_responses',
-                                          full=True)
+                                         'final_responses', full=True)
+
     class Meta:
         queryset = Quiz.objects.all()
         resource_name = "quiz"
-        list_allowed_methods = ['post', 'get'] 
+        list_allowed_methods = ['post', 'get']
         include_resource_uri = True
         always_return_data = True
 
@@ -27,8 +25,7 @@ class QuizResource(ModelResource):
 
 class QuestionResource(ModelResource):
     answers = fields.ToManyField("quiz.api.AnswerResource",
-                                  'answers',
-                                  full=True)
+                                 'answers', full=True)
 
     class Meta:
         queryset = Question.objects.all()
