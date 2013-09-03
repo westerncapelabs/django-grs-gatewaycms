@@ -53,7 +53,8 @@ class TestAdminView(TestCase):
                          'answers-TOTAL_FORMS': 5,
                          'answers-MAX_NUM_FORMS':  u'',
                          "answers-0-answer": "Yes",
-                         'answers-0-response': "R1"
+                         'answers-0-response': "R1",
+                         "answers-0-correct": True
                          })
 
         query = Quiz.objects.get(name="Quiz Test Title")
@@ -62,6 +63,36 @@ class TestAdminView(TestCase):
         self.assertEqual(question.question, "This is the first QUestion?")
         self.assertEqual(answer.answer, "Yes")
         self.assertEqual(answer.response, "R1")
+        self.assertEqual(answer.correct, True)
+
+    def test_admin_correct_validation(self):
+        """
+        Testing Creating a Quiz
+        """
+        self.client.login(username=self.admin.username,
+                          password="pass123")
+
+        time = timezone.now()
+        url = reverse("admin:quiz_quiz_add")
+        self.client.post(url, data={"name": "Quiz Test Title",
+                         "description": "Quiz Test Description"})
+        query = Quiz.objects.get(name="Quiz Test Title")
+        self.assertEqual(query.name, "Quiz Test Title")
+        self.assertEqual(query.updated_by, self.admin)
+        self.assertGreater(query.updated_at, time)
+
+        url = reverse("admin:quiz_question_add")
+        response = self.client.post(url, data={"question": "This is the first QUestion?",
+                                    "quiz_id": query.id,
+                                    "answers-INITIAL_FORMS": 0,
+                                    'answers-TOTAL_FORMS': 5,
+                                    'answers-MAX_NUM_FORMS':  u'',
+                                    "answers-0-answer": "Yes",
+                                    'answers-0-response': "R1",
+                                 })
+
+        self.assertIn("You need at least one correct answer",
+                      response.context_data["errors"])
 
     def test_admin_quiz_exceed_limit(self):
         """
