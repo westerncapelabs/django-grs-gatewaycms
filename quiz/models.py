@@ -9,7 +9,7 @@ class Quiz(models.Model):
     description = models.CharField(max_length=163)
     active = models.BooleanField()
     updated_by = models.ForeignKey(User,
-                                   null =True,
+                                   null=True,
                                    editable=False)
     updated_at = models.DateTimeField(auto_now_add=True,
                                       blank=False,
@@ -49,7 +49,7 @@ class Answer(models.Model):
 class FinalResponse(models.Model):
     quiz_id = models.ForeignKey('Quiz',
                                 related_name='final_responses')
-    text = models.CharField(max_length=180)
+    text = models.CharField(max_length=123)
     sms = models.CharField(max_length=160)
     for_total = models.IntegerField()
 
