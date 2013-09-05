@@ -32,6 +32,7 @@ class SimpleTest(ResourceTestCase):
                                     data={"sex": "female",
                                     "msisdn": "0723456789",
                                     "age": "16 or older",
+                                    "grade": "5",
                                     "community": "Meadowlands"
                                     })
 
@@ -40,3 +41,11 @@ class SimpleTest(ResourceTestCase):
         self.assertEqual("0723456789", json_item["msisdn"])
         self.assertEqual("16 or older", json_item["age"])
         self.assertEqual("Meadowlands", json_item["community"])
+        self.assertEqual("5", json_item["grade"])
+
+        new_user = VumiGoUser.objects.all()[0]
+        self.assertEqual("female", new_user.sex)
+        self.assertEqual("0723456789", new_user.msisdn)
+        self.assertEqual("16 or older", new_user.age)
+        self.assertEqual("Meadowlands", new_user.community)
+        self.assertEqual("5", new_user.grade)
