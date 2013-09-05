@@ -13,7 +13,7 @@ class QuizResource(ModelResource):
     class Meta:
         queryset = Quiz.objects.all()
         resource_name = "quiz"
-        list_allowed_methods = ['post']
+        list_allowed_methods = ['post', 'get']
         include_resource_uri = True
         always_return_data = True
 
