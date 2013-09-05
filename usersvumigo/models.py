@@ -7,6 +7,7 @@ class VumiGoUser(models.Model):
                               verbose_name="MSISDN (Mobile Number)")
     sex = models.CharField(max_length=6)
     age = models.CharField(max_length=30)
+    grade = models.CharField(max_length=3)
     community = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True,
                                       blank=False,
