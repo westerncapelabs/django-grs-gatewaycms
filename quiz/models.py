@@ -50,7 +50,7 @@ class FinalResponse(models.Model):
     quiz_id = models.ForeignKey('Quiz',
                                 related_name='final_responses')
     text = models.CharField(max_length=123)
-    sms = models.CharField(max_length=160)
+    sms = models.CharField(max_length=320)
     for_total = models.IntegerField()
 
     def __unicode__(self):
