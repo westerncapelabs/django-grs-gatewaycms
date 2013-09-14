@@ -6,6 +6,7 @@ class Service(models.Model):
     content_1 = models.CharField(max_length=125, blank=True)
     content_2 = models.CharField(max_length=125, blank=True)
     content_3 = models.CharField(max_length=125, blank=True)
+    sms = models.CharField(max_length=320)
 
     def __unicode__(self):
         return self.name
