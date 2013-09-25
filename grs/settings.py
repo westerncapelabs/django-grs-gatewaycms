@@ -26,10 +26,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'grs',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -224,7 +224,9 @@ RAVEN_CONFIG = {
     # 'dsn': 'http://public:secret@example.com/1',
 }
 
-GOPHER_BASE_URL = "http://localhost:8001/api/v1/recharge/"
+GOPHER_BASE_URL = "http://localhost:8000/api/v1/recharge/"
+GOPHER_USERNAME = ""
+GOPHER_API_KEY = ""
 
 djcelery.setup_loader()
 BROKER_URL = "django://"
