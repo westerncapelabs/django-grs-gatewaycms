@@ -1,15 +1,3 @@
-# from django.contrib import admin
-# from services.models import Service
-
-
-# class ServiceAdmin(admin.ModelAdmin):
-#     list_display = ["name", "content_1", "content_2", "content_3", "sms"]
-
-
-# admin.site.register(Service, ServiceAdmin)
-
-# -----
-
 from django.contrib import admin
 from models import (Category, Service)
 from django import forms
