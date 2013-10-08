@@ -36,7 +36,7 @@ class ServiceFormset(BaseInlineFormSet):
                                                 "screen of content to display")
 
             if ("sms" not in form.cleaned_data and service_index >= 1):
-                raise forms.ValidationError("You need to provice an SMS")
+                raise forms.ValidationError("You need to provide an SMS")
 
             service_index = service_index + 1
 
