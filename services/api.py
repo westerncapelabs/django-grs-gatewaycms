@@ -14,7 +14,6 @@ class CategoryResource(ModelResource):
         list_allowed_methods = ['get'] 
         include_resource_uri = True
         always_return_data = True
-        # authorization = Authorization()
 
     def get_object_list(self, request):
         query = super(CategoryResource, self).get_object_list(request)
