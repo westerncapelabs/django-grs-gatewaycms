@@ -28,8 +28,8 @@ DATABASES = {
         'NAME': 'grs',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
