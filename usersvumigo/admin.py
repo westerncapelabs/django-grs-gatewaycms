@@ -17,7 +17,8 @@ def send_airtime_to_selected(modeladmin, request, queryset):
     app = AirtimeApplication.objects.get(name="Registered User Airtime")
     amount = 500  # cents
     product_key = "AIRTIME"
-    create_list = [SendAirtime(app_id_id=app.id, msisdn=obj.msisdn, amount=amount, product_key=product_key) for obj in queryset]
+    create_list = [SendAirtime(app_id_id=app.id, msisdn=obj.msisdn,
+        amount=amount, product_key=product_key) for obj in queryset]
     SendAirtime.objects.bulk_create(create_list)
 
 
