@@ -1,7 +1,6 @@
 from gopher.models import SendAirtime
 from celery.decorators import task
 from celery.utils.log import get_task_logger
-from celery.exceptions import MaxRetriesExceededError
 from django.conf import settings
 import requests
 import json
