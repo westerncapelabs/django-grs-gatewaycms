@@ -2,10 +2,10 @@ from django.db import models
 
 
 class AirtimeApplication(models.Model):
-    name = models.CharField(max_length=6)
-    ratio  = models.IntegerField(null=True)
-    per_day  = models.IntegerField(null=True)
-    amount  = models.IntegerField(null=True)
+    name = models.CharField(max_length=50)
+    ratio  = models.IntegerField(null=True, blank=True)
+    per_day  = models.IntegerField(null=True, blank=True)
+    amount  = models.IntegerField(null=True, blank=True)
     active = models.BooleanField()
     product_key = models.CharField(max_length=10)
 
