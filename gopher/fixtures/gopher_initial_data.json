@@ -1,1 +1,1 @@
-[{"pk": 1, "model": "gopher.airtimeapplication", "fields": {"ratio": null, "name": "Registered User Airtime", "product_key": "AIRTIME", "per_day": null, "amount": null, "active": false}}]
+[{"pk": 1, "model": "gopher.airtimeapplication", "fields": {"ratio": null, "name": "Registered User Airtime", "product_key": "AIRTIME", "per_day": null, "amount": null, "active": true}}]
