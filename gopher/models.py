@@ -31,4 +31,4 @@ class SendAirtime(models.Model):
         return self.msisdn
 
     class Meta:
-        verbose_name = "Send Airtime"
+        verbose_name_plural = "Send Airtime"
