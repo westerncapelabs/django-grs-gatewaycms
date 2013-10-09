@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('ratio', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('per_day', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('max_per_day', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
             ('amount', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
             ('active', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('product_key', self.gf('django.db.models.fields.CharField')(max_length=10)),
@@ -33,10 +33,6 @@ class Migration(SchemaMigration):
         db.send_create_signal(u'gopher', ['SendAirtime'])
 
 
-        from django.core.management import call_command
-        call_command('loaddata', 'gopher_initial_data.json')
-
-
     def backwards(self, orm):
         # Deleting model 'AirtimeApplication'
         db.delete_table(u'gopher_airtimeapplication')
@@ -51,8 +47,8 @@ class Migration(SchemaMigration):
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'amount': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'max_per_day': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'per_day': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'product_key': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'ratio': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },

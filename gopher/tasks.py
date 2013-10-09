@@ -12,7 +12,8 @@ logger = get_task_logger(__name__)
 def get_new_recharge():
     logger.info("Checking for new recharges")
     queryset = SendAirtime.objects.filter(sent=False)
-    bulk_sms = [{"msisdn": obj.msisdn, "denomination": obj.amount, "product_code": obj.product_key} for obj in queryset.all()]
+    bulk_sms = [{"msisdn": obj.msisdn, "denomination": obj.amount,
+        "product_code": obj.product_key} for obj in queryset.all()]
     ids = [obj.id for obj in queryset.all()]
     if bulk_sms:
         send_bulk_sms.delay(bulk_sms, ids)

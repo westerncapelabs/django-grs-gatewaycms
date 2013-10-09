@@ -4,7 +4,7 @@ from django.db import models
 class AirtimeApplication(models.Model):
     name = models.CharField(max_length=50)
     ratio  = models.IntegerField(null=True, blank=True)
-    per_day  = models.IntegerField(null=True, blank=True)
+    max_per_day  = models.IntegerField(null=True, blank=True)
     amount  = models.IntegerField(null=True, blank=True)
     active = models.BooleanField()
     product_key = models.CharField(max_length=10)
@@ -31,4 +31,4 @@ class SendAirtime(models.Model):
         return self.msisdn
 
     class Meta:
-        verbose_name = "Send Airtime"
+        verbose_name_plural = "Send Airtime"

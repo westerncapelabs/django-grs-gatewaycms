@@ -1,5 +1,5 @@
 from django.contrib import admin
-from usersvumigo.models import (VumiGoUser)
+from usersvumigo.models import (VumiGoUser, QuizResponse)
 from gopher.models import SendAirtime, AirtimeApplication
 
 
@@ -17,7 +17,8 @@ def send_five_rand_airtime_to_selected(modeladmin, request, queryset):
     app = AirtimeApplication.objects.get(name="Registered User Airtime")
     amount = 500  # cents
     product_key = "AIRTIME"
-    create_list = [SendAirtime(app_id_id=app.id, msisdn=obj.msisdn, amount=amount, product_key=product_key) for obj in queryset]
+    create_list = [SendAirtime(app_id_id=app.id, msisdn=obj.msisdn,
+        amount=amount, product_key=product_key) for obj in queryset]
     SendAirtime.objects.bulk_create(create_list)
 
 
@@ -66,5 +67,10 @@ class VumiGoUserAdmin(admin.ModelAdmin):
     actions = [send_five_rand_airtime_to_selected, send_ten_rand_airtime_to_selected,
                send_fifteen_rand_airtime_to_selected]
 
+class QuizResponseAdmin(admin.ModelAdmin):
+    list_display = ["created_by", "quiz", "question", "question_text", "correct", "created_at"]
+
+
 
 admin.site.register(VumiGoUser, VumiGoUserAdmin)
+admin.site.register(QuizResponse, QuizResponseAdmin)

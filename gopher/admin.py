@@ -3,7 +3,7 @@ from gopher.models import AirtimeApplication, SendAirtime
 
 
 class AirtimeApplicationAdmin(admin.ModelAdmin):
-    list_display = ["name", "ratio", "per_day", "amount", "active", "product_key"]
+    list_display = ["name", "ratio", "max_per_day", "amount", "active", "product_key"]
 
 
 class SendAirtimeAdmin(admin.ModelAdmin):
