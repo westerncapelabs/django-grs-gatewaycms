@@ -1,6 +1,6 @@
 from django.contrib import admin
 from usersvumigo.models import (VumiGoUser, QuizResponse)
-from usersvumigo.tasks import send_bulk_sms
+from gopher.models import SendAirtime, AirtimeApplication
 
 
 def send_airtime_to_selected(modeladmin, request, queryset):
@@ -14,14 +14,15 @@ def send_airtime_to_selected(modeladmin, request, queryset):
         "project_id": ""
     }
     """
-    DEN = 5000
-    PROD = "AIRTIME"
-    NOTES = ""
-    sms_array = [{"msisdn": obj.msisdn, "denomination": DEN, "product_code": PROD, "notes": NOTES} for obj in queryset]
-    send_bulk_sms.delay(sms_array)
+    app = AirtimeApplication.objects.get(name="Registered User Airtime")
+    amount = 500  # cents
+    product_key = "AIRTIME"
+    create_list = [SendAirtime(app_id_id=app.id, msisdn=obj.msisdn,
+        amount=amount, product_key=product_key) for obj in queryset]
+    SendAirtime.objects.bulk_create(create_list)
 
 
-send_airtime_to_selected.short_descrption = "Send airtime to following users"
+send_airtime_to_selected.short_descrption = "Send R 5 airtime to following users"
 
 class VumiGoUserAdmin(admin.ModelAdmin):
     list_display = ["msisdn", "sex", "age", "community", "created_at"]

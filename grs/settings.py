@@ -26,8 +26,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'grs',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -134,7 +134,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -142,8 +141,6 @@ INSTALLED_APPS = (
     'gunicorn',
     'django_nose',
     'raven.contrib.django.raven_compat',
-    #'djcelery',
-    #'djcelery_email',
     'debug_toolbar',
     'quiz',
     'tastypie',
@@ -151,10 +148,8 @@ INSTALLED_APPS = (
     'usersvumigo',
     'djcelery',
     'djcelery_email',
+    'gopher',
     'kombu.transport.django',
-
-    # sample apps to explain usage
-    #'celery_app',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -194,9 +189,6 @@ LOGGING = {
 # and execute tasks immediate instead of deferring them to the queue / workers.
 # CELERY_ALWAYS_EAGER = DEBUG
 
-# Tell Celery where to find the tasks
-#CELERY_IMPORTS = ('celery_app.tasks',)
-
 # Defer email sending to Celery, except if we're in debug mode,
 # then just print the emails to stdout for debugging.
 #EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
@@ -229,7 +221,16 @@ GOPHER_USERNAME = ""
 GOPHER_API_KEY = ""
 
 djcelery.setup_loader()
-BROKER_URL = "django://"
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 CELERY_RESULT_BACKEND = "database"
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'login-every-1-minute': {
+        'task': 'gopher.tasks.get_new_recharge',
+        'schedule': timedelta(seconds=60),
+    },
+}
