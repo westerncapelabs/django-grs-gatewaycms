@@ -4,7 +4,7 @@ import os
 import djcelery
 
 
-djcelery.setup_loader()
+# djcelery.setup_loader()
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,10 +26,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'grs',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -148,7 +148,10 @@ INSTALLED_APPS = (
     'quiz',
     'tastypie',
     'services',
-    'usersvumigo'
+    'usersvumigo',
+    'djcelery',
+    'djcelery_email',
+    'kombu.transport.django',
 
     # sample apps to explain usage
     #'celery_app',
@@ -220,3 +223,13 @@ RAVEN_CONFIG = {
     # DevOps will supply you with this.
     # 'dsn': 'http://public:secret@example.com/1',
 }
+
+GOPHER_BASE_URL = "http://localhost:8000/api/v1/recharge/"
+GOPHER_USERNAME = ""
+GOPHER_API_KEY = ""
+
+djcelery.setup_loader()
+BROKER_URL = "django://"
+
+CELERY_RESULT_BACKEND = "database"
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
