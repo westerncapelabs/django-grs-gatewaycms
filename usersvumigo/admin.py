@@ -1,5 +1,5 @@
 from django.contrib import admin
-from usersvumigo.models import (VumiGoUser)
+from usersvumigo.models import (VumiGoUser, QuizResponse)
 from gopher.models import SendAirtime, AirtimeApplication
 
 
@@ -27,5 +27,10 @@ class VumiGoUserAdmin(admin.ModelAdmin):
     list_display = ["msisdn", "sex", "age", "community", "created_at"]
     actions = [send_airtime_to_selected]
 
+class QuizResponseAdmin(admin.ModelAdmin):
+    list_display = ["created_by", "quiz", "question", "question_text", "correct", "created_at"]
+
+
 
 admin.site.register(VumiGoUser, VumiGoUserAdmin)
+admin.site.register(QuizResponse, QuizResponseAdmin)
