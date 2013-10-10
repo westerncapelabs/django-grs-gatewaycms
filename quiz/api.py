@@ -29,7 +29,10 @@ class QuestionResource(ModelResource):
 
     class Meta:
         queryset = Question.objects.all()
-        include_resource_uri = False
+        resource_name = "question"
+        list_allowed_methods = ['get']
+        always_return_data = True
+        include_resource_uri = True
 
 
 class AnswerResource(ModelResource):

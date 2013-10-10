@@ -15,7 +15,10 @@ class VumiGoUserResource(ModelResource):
         authorization = Authorization()
 
 class QuizResponseResource(ModelResource):
+    quiz = fields.ForeignKey("quiz.api.QuizResource", 'quiz', full=True)
     question = fields.ForeignKey("quiz.api.QuestionResource", 'question', full=True)
+    created_by = fields.ForeignKey("usersvumigo.api.VumiGoUserResource", 'created_by', full=True)
+
     class Meta:
         queryset = QuizResponse.objects.all()
         resource_name = "quizresponses"

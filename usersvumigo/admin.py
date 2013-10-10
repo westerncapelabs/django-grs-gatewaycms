@@ -44,7 +44,7 @@ class VumiGoUserAdmin(admin.ModelAdmin):
                send_fifteen_rand_airtime_to_selected]
 
 class QuizResponseAdmin(admin.ModelAdmin):
-    list_display = ["created_by", "quiz", "question", "question_text", "correct", "created_at"]
+    list_display = ["created_by", "question", "question_text", "correct", "created_at"]
 
 
 
