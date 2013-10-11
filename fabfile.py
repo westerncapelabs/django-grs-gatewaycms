@@ -38,5 +38,6 @@ def deploy():
 
 def install_packages(force=False):
     with cd(env.path):
+        sudo('git pull')
         sudo('ve/bin/pip install %s -r requirements.pip' % (
              '--upgrade' if force else '',), user=DEPLOY_USER)
