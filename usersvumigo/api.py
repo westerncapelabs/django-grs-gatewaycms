@@ -1,4 +1,4 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL
 from usersvumigo.models import VumiGoUser, QuizResponse
 from tastypie import fields
 from tastypie.authorization import Authorization
@@ -13,6 +13,8 @@ class VumiGoUserResource(ModelResource):
         include_resource_uri = True
         always_return_data = True
         authorization = Authorization()
+        filtering = {
+            'msisdn': ALL}
 
 class QuizResponseResource(ModelResource):
     quiz = fields.ForeignKey("quiz.api.QuizResource", 'quiz', full=True)

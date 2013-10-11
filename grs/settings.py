@@ -26,7 +26,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'grs',
-        'USER': '',
+        'USER': 'grs',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -216,8 +216,8 @@ RAVEN_CONFIG = {
     # 'dsn': 'http://public:secret@example.com/1',
 }
 
-GOPHER_BASE_URL = "http://localhost:8000/api/v1/recharge/"
-GOPHER_USERNAME = ""
+GOPHER_BASE_URL = "http://gopherairtime.com/api/v1/recharge/"
+GOPHER_USERNAME = "grassroot"
 GOPHER_API_KEY = ""
 
 djcelery.setup_loader()
@@ -229,7 +229,7 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 from datetime import timedelta
 
 CELERYBEAT_SCHEDULE = {
-    'login-every-1-minute': {
+    'check-for-recharge-every-1-minute': {
         'task': 'gopher.tasks.get_new_recharge',
         'schedule': timedelta(seconds=60),
     },
