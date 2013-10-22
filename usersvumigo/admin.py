@@ -1,6 +1,7 @@
 from django.contrib import admin
 from usersvumigo.models import (VumiGoUser, QuizResponse)
 from gopher.models import SendAirtime, AirtimeApplication
+from actions import export_as_csv_action
 
 
 def send_airtime_to_selected(modeladmin, request, queryset, amount):
@@ -28,7 +29,7 @@ def send_five_rand_airtime_to_selected(modeladmin, request, queryset):
 
 def send_ten_rand_airtime_to_selected(modeladmin, request, queryset):
     send_airtime_to_selected(modeladmin, request, queryset, 1000)
-    
+
 
 def send_fifteen_rand_airtime_to_selected(modeladmin, request, queryset):
     send_airtime_to_selected(modeladmin, request, queryset, 1500)
@@ -40,11 +41,12 @@ send_fifteen_rand_airtime_to_selected.short_description = "Send R 15 airtime to 
 
 class VumiGoUserAdmin(admin.ModelAdmin):
     list_display = ["msisdn", "sex", "age", "community", "created_at"]
-    actions = [send_five_rand_airtime_to_selected, send_ten_rand_airtime_to_selected,
-               send_fifteen_rand_airtime_to_selected]
+    actions = [export_as_csv_action("Export selected objects as CSV file"), send_five_rand_airtime_to_selected,
+               send_ten_rand_airtime_to_selected, send_fifteen_rand_airtime_to_selected]
 
 class QuizResponseAdmin(admin.ModelAdmin):
     list_display = ["created_by", "question", "question_text", "correct", "created_at"]
+    actions = [export_as_csv_action("Export selected objects as CSV file")]
 
 
 
