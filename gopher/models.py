@@ -1,3 +1,7 @@
+# Python
+from random import randint
+
+# Django
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
@@ -37,7 +41,8 @@ class SendAirtime(models.Model):
 
 
 class RequestAirtimeSend(models.Model):
-    request_application = models.ForeignKey(AirtimeApplication)
+    request_application = models.ForeignKey(AirtimeApplication,
+                                            related_name="request_application")
     request_send_airtime = models.ForeignKey(SendAirtime,
                                              null=True,
                                              blank=True)
@@ -59,4 +64,13 @@ class RequestAirtimeSend(models.Model):
 
 @receiver(post_save, sender=RequestAirtimeSend)
 def send_random_airtime(sender, instance, signal, created, **kwargs):
-    pass
+
+    rand_int = randint(1, instance.request_application.ratio)
+
+    if rand_int == 1:
+        send_airtime = SendAirtime(app_id=instance.request_application,
+                                   msisdn=instance.msisdn,
+                                   product_key=instance.product_key,
+                                   amount=instance.amount)
+        send_airtime.save()
+
