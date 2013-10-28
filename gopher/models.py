@@ -14,6 +14,11 @@ class AirtimeApplication(models.Model):
     amount  = models.IntegerField(null=True, blank=True)
     active = models.BooleanField()
     product_key = models.CharField(max_length=10)
+    sms = models.CharField(max_length=160,
+                           null=True,
+                           blank=True,
+                           verbose_name="Notifications SMS Text")
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
     def __unicode__(self):
