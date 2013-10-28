@@ -11,7 +11,7 @@ class TestService(ResourceTestCase):
             Testing basic API functionality.
         """
         url = reverse('api_dispatch_list',
-                      kwargs={'resource_name': 'services',
+                      kwargs={'resource_name': 'category',
                       'api_name': 'v1'})
         response = self.client.get(url)
         self.assertEqual("application/json", response["Content-Type"])

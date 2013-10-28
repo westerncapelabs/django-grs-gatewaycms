@@ -5,7 +5,14 @@ from tastypie.test import ResourceTestCase
 
 class TestRequestRandom(ResourceTestCase):
     def test_post_save_signal(self):
-        pass
+        airtime = RequestAirtimeSend(msisdn="27721231234",
+                                     product_key="VOD",
+                                     amount=500,
+                                     sent=False)
+        airtime.save()
+
+        send = SendAirtime.objects.get(msisdn="27721231234")
+        self.assertEqual(send, 500)
 
     def test_api_sends(self):
         pass
