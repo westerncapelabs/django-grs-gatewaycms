@@ -11,12 +11,13 @@ logger = get_task_logger(__name__)
 @task
 def get_new_recharge():
     logger.info("Checking for new recharges")
+
     queryset = SendAirtime.objects.filter(sent=False)
     bulk_sms = [{
         "msisdn": int(obj.msisdn),
         "denomination": obj.amount,
         "product_code": obj.product_key,
-        "notification": obj.app_id.notification_sms,
+        "notification": obj.app_id.notification_sms if obj.app_id.notification_sms else None,
         "recharge_project": "/api/v1/project/1/"
         } for obj in queryset.all()]
     ids = [obj.id for obj in queryset.all()]
@@ -31,6 +32,7 @@ def send_bulk_sms(bulk_sms, ids):
     What if SMS is not sent?
     """
     logger.info("Got bulk recharges now doing the updates")
+
     data = {'objects' : bulk_sms}
     headers = {"content-type": "application/json"}
     url = "%s?username=%s&api_key=%s" % (settings.GOPHER_BASE_URL,
