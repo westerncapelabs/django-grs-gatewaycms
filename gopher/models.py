@@ -14,10 +14,9 @@ class AirtimeApplication(models.Model):
     amount  = models.IntegerField(null=True, blank=True)
     active = models.BooleanField()
     product_key = models.CharField(max_length=10)
-    sms = models.CharField(max_length=160,
-                           null=True,
-                           blank=True,
-                           verbose_name="Notifications SMS Text")
+    notification_sms = models.CharField(max_length=160,
+                                        null=True,
+                                        blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -28,7 +27,8 @@ class AirtimeApplication(models.Model):
         verbose_name = "Airtime Application"
 
 class SendAirtime(models.Model):
-    app_id = models.ForeignKey(AirtimeApplication)
+    app_id = models.ForeignKey(AirtimeApplication,
+                               related_name="app_id")
     msisdn = models.CharField(max_length=30,
                               verbose_name="MSISDN (Mobile Number)")
     product_key = models.CharField(max_length=10)
