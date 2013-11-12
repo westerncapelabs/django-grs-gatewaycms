@@ -28,7 +28,7 @@ class RequestAirtimeSendResource(ModelResource):
         data:
         {
         "msisdn": "27721231234",
-        "product_key": "VOD",
+        "product_key": "AIRTIME",
         "amount": 500,
         "request_application": "/api/v1/request/application/1/"
     }
