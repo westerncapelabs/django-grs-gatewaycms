@@ -19,3 +19,4 @@ fabric
 django-tastypie<0.10.0
 python-mimeparse
 requests
+django_extensions

@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "gopher.airtimeapplication", "fields": {"ratio": 3, "name": "test_application", "max_per_day": 5000, "product_key": "VOD", "amount": 20000, "active": true}}, {"pk": 2, "model": "gopher.airtimeapplication", "fields": {"ratio": 2, "name": "test_application_2", "max_per_day": 10000, "product_key": "VOD", "amount": 100000, "active": true}}]
