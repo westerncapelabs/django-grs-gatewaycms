@@ -7,7 +7,7 @@ class AirtimeApplicationAdmin(admin.ModelAdmin):
 
 
 class SendAirtimeAdmin(admin.ModelAdmin):
-    list_display = ["app_id", "msisdn", "product_key", "amount", "sent", "created_at"]
+    list_display = ["msisdn", "app_id",  "product_key", "amount", "sent", "created_at"]
 
 
 class RequestAirtimeSendAdmin(admin.ModelAdmin):
