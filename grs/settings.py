@@ -234,3 +234,5 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=60),
     },
 }
+
+from production_settings import *
